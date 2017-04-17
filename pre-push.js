@@ -3,7 +3,6 @@
 const exec = require('child_process').exec;
 var querystring = require('querystring');
 var http = require('http');
-var fs = require('fs');
 
 
 exec('git config --get remote.origin.url', function (error, stdout, stderr) {
