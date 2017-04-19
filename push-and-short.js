@@ -26,6 +26,10 @@ exec('git config --get remote.origin.url', function (error, stdout, stderr) {
     else {
         PostCode(str, "", "");
     }
+
+    exec('git push origin master', function (error, stdout, stderr) {
+
+    })
 })
 
 function PostCode(url, secret, code) {
