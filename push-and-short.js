@@ -2,7 +2,7 @@
 
 const exec = require('child_process').exec;
 const lecture = process.argv[2];
-const secret = "";
+const secret = "cb@123";
 const customShortcode = process.argv[3];
 var querystring = require('querystring');
 var http = require('http');
@@ -15,11 +15,15 @@ exec('git config --get remote.origin.url', function (error, stdout, stderr) {
     }
 
     var str = `${stdout}`;
-
-    str = str.substring(0, str.length - 5) + "/" + lecture;
-    if (customShortcode) {
-        PostCode(str, secret, customShortcode);
-    } else {
+    if (lecture) {
+        str = str.substring(0, str.length - 5) + "/" + lecture;
+        if (customShortcode) {
+            PostCode(str, secret, customShortcode);
+        } else {
+            PostCode(str, "", "");
+        }
+    }
+    else {
         PostCode(str, "", "");
     }
 })
