@@ -14,3 +14,5 @@ Steps to make it global :
 5. <code> chmod u+x ~/.git-templates/hooks/pre-push </code>
 
 Every time you <code>git init </code> This will work
+
+New functionality added. //TODO: Update readme.

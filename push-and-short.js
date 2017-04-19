@@ -29,6 +29,8 @@ exec('git config --get remote.origin.url', function (error, stdout, stderr) {
 
     exec('git push origin master', function (error, stdout, stderr) {
 
+        var s = `${stdout}`;
+        console.log(s);
     })
 })
 
