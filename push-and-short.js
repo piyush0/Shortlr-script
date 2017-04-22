@@ -2,7 +2,7 @@
 
 const exec = require('child_process').exec;
 const lecture = process.argv[2];
-const secret = "cb@123"; // Add your secret
+const secret = ""; // Add your secret
 const customShortcode = process.argv[3];
 var querystring = require('querystring');
 var http = require('http');
