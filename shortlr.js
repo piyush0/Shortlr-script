@@ -9,15 +9,20 @@ const http = require('http');
 
 
 if (process.argv[2] !== '-s') {
-    const customShortcode = process.argv[2];
-    const directory = process.argv[3];
+    const customShortcode = process.argv[5];
+    const directory = process.argv[4];
     let remote = null;
-    if (process.argv[4]) {
-        remote = process.argv[4];
+    let branch = null;
+    if (process.argv[2]) {
+        remote = process.argv[2];
     } else {
         remote = 'origin';
     }
-
+    if (process.argv[3]) {
+        branch = process.argv[3];
+    } else {
+        branch = 'master';
+    }
 
     exec('git config --get remote.' + remote + '.url', function (error, stdout, stderr) {
         if (error) {
@@ -27,18 +32,17 @@ if (process.argv[2] !== '-s') {
 
         let str = `${stdout}`;
         if (directory) {
-            str = str.substring(0, str.length - 5) + "/" + directory;
+            str = str.substring(0, str.length - 5) + "/" + "tree/" + branch + "/" + directory;
             if (customShortcode) {
+                console.log(customShortcode);
                 PostCode(str, secret, customShortcode);
-            } else {
-                PostCode(str, "", "");
             }
         }
         else {
-            PostCode(str, "", "");
+            PostCode(str, secret, customShortcode);
         }
 
-        exec('git push ' + remote + ' master', function (error, stdout, stderr) {
+        exec('git push ' + remote + ' ' + branch, function (error, stdout, stderr) {
 
             let s = `${stdout}`;
             console.log(s);
@@ -61,17 +65,16 @@ if (process.argv[2] !== '-s') {
 
         let str = `${stdout}`;
         PostCode(str);
-        console.log(str);
     });
 
 }
 
-function PostCode(url) {
+function PostCode(url,secret,code) {
 
     let post_data = querystring.stringify({
         'url': url,
-        'secret': "",
-        'code': ""
+        'secret': secret,
+        'code': code
     });
 
     let post_options = {
