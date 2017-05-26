@@ -39,9 +39,8 @@ Produces a short link of 'origin' remote of your repository
 
 ## Steps to make global
 
-1. Rename shortlr.js to shortlr
-2. <code> chmod u+x shortlr </code>
-3. Copy the executable to your <i>bin</i> folder
+1. <code> chmod u+x shortlr </code>
+2. Copy the executable to your <i>bin</i> folder
 
 Now you can use it globally. (Without having to download the shortlr.js to every git repository)
 
