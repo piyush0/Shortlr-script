@@ -33,10 +33,7 @@ if (process.argv[2] !== '-s') {
         let str = `${stdout}`;
         if (directory) {
             str = str.substring(0, str.length - 5) + "/" + "tree/" + branch + "/" + directory;
-            if (customShortcode) {
-                console.log(customShortcode);
-                PostCode(str, secret, customShortcode);
-            }
+            PostCode(str, secret, customShortcode);
         }
         else {
             PostCode(str, secret, customShortcode);
@@ -69,7 +66,7 @@ if (process.argv[2] !== '-s') {
 
 }
 
-function PostCode(url,secret,code) {
+function PostCode(url, secret, code) {
 
     let post_data = querystring.stringify({
         'url': url,
