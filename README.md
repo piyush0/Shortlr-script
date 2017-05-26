@@ -1,6 +1,6 @@
 # Shortlr Script
 
-### Usage
+## Usage
 
 #### Push and short
 
@@ -12,10 +12,8 @@ All the arguments are optional.
 | :--- | :--- | :--- |
 | remote-name | origin | The remote to which the git push takes place |
 | branch-name | master| The branch to which git push takes place |
-| directory |  | The directory to which the shortcode will point |
-| custom-shortcode |  | The custom shortcode that will be produced. Makes sense only if you know the secret |
-<br>
-<br>
+| directory |  | The directory to which the shortcode will point, If no value is provided, shortcode points to the root of the repo. |
+| custom-shortcode |  | The custom shortcode that will be produced. Makes sense only if you know the secret. If no value is provided, a random shortcode is generated |
 
 #### Shorten only
 <code> node shortlr -s 'remote-name' </code>
@@ -25,10 +23,17 @@ All the arguments are optional.
 | :--- | :--- | :--- |
 | remote-name | origin | The remote of which you want the short link of |
 
-### Example
+## Example
 
 <code> node shortlr origin master public_static projPs </code>
 
 This will push your code to 'origin master' and produce a link like http://cb.lk/projPs
 This short link is pointing to public_static directory of your repository.
 
+<code> node shortlr -s origin </code>
+
+Produces a short link of 'origin' remote of your repository
+
+## Dependencies
+
+[Shortlr by Coding Blocks](https://github.com/coding-blocks/shortlr)
