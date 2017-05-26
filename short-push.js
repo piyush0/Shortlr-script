@@ -1,22 +1,30 @@
 #!/usr/bin/env node
 
 const exec = require('child_process').exec;
-const lecture = process.argv[2];
+const directory = process.argv[2];
 const secret = ""; // Add your secret
 const customShortcode = process.argv[3];
-var querystring = require('querystring');
-var http = require('http');
+
+const querystring = require('querystring');
+const http = require('http');
+
+let remote = null;
+if (process.argv[4]) {
+    remote = process.argv[4];
+} else {
+    remote = 'origin';
+}
 
 
-exec('git config --get remote.origin.url', function (error, stdout, stderr) {
+exec('git config --get remote.' + remote + '.url', function (error, stdout, stderr) {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
     }
 
-    var str = `${stdout}`;
-    if (lecture) {
-        str = str.substring(0, str.length - 5) + "/" + lecture;
+    let str = `${stdout}`;
+    if (directory) {
+        str = str.substring(0, str.length - 5) + "/" + directory;
         if (customShortcode) {
             PostCode(str, secret, customShortcode);
         } else {
@@ -27,22 +35,22 @@ exec('git config --get remote.origin.url', function (error, stdout, stderr) {
         PostCode(str, "", "");
     }
 
-    exec('git push origin master', function (error, stdout, stderr) {
+    exec('git push ' + remote + ' master', function (error, stdout, stderr) {
 
-        var s = `${stdout}`;
+        let s = `${stdout}`;
         console.log(s);
     })
-})
+});
 
 function PostCode(url, secret, code) {
 
-    var post_data = querystring.stringify({
+    let post_data = querystring.stringify({
         'url': url,
         'secret': secret,
         'code': code
     });
 
-    var post_options = {
+    let post_options = {
         host: 'cb.lk',
         path: '/api/v1/shorten',
         method: 'POST',
@@ -52,7 +60,7 @@ function PostCode(url, secret, code) {
         }
     };
 
-    var post_req = http.request(post_options, function (res) {
+    let post_req = http.request(post_options, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('http://cb.lk/' + JSON.parse(chunk).shortcode);
