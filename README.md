@@ -1,5 +1,8 @@
 # Shortlr Script
 
+<code> shortlr </code>
+Just this command will push to your origin master and will shorten the url of your remote.
+
 ## Usage
 
 ### Push and short
