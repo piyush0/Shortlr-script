@@ -70,6 +70,7 @@ if (process.argv[2] !== '-s') {
 
 function PostCode(url, secret, code) {
 
+    url = url.replace(/(\r\n|\n|\r)/gm, "");
     let post_data = querystring.stringify({
         'url': url,
         'secret': secret,
