@@ -18,13 +18,13 @@ If the argument is a URL, the output a shortened URL.
 
 #### Example
 
-<code> node shortlr http://google.com </code>
+<code> shortlr http://google.com </code>
 
 will produces a short link pointing to google.
 
 ### Push and short
 
-<code> node shortlr 'remote-name' 'branch-name' 'directory' 'custom-code' </code>
+<code> shortlr 'remote-name' 'branch-name' 'directory' 'custom-code' </code>
 
 All the arguments are optional.
 
@@ -37,14 +37,14 @@ All the arguments are optional.
 
 #### Example
 
-<code> node shortlr origin master public_static projPs </code>
+<code> shortlr origin master public_static projPs </code>
 
 This will push your code to 'origin master' and produce a link like http://cb.lk/projPs
 This short link is pointing to public_static directory of your repository.
 
 
 ### Shorten only
-<code> node shortlr -s 'remote-name' </code>
+<code> shortlr -s 'remote-name' </code>
 'remote-name' is an optional argument
 
 | Argument | Default Value | Comments |
@@ -54,7 +54,7 @@ This short link is pointing to public_static directory of your repository.
 
 #### Example
 
-<code> node shortlr -s origin </code>
+<code> shortlr -s origin </code>
 
 Produces a short link of 'origin' remote of your repository
 
