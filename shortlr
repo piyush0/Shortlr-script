@@ -9,7 +9,8 @@ const secret = ""; // Add your secret
 const querystring = require('querystring');
 const http = require('http');
 
-if (ValidURL(process.argv[2])) {
+
+if (process.argv[2] && ValidURL(process.argv[2])) {
     const customShortcode = process.argv[3];
     PostCode(process.argv[2],secret,customShortcode);
 }
