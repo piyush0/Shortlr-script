@@ -46,10 +46,12 @@ else if (process.argv[2] !== '-s') {
             PostCode(str, secret, customShortcode);
         }
 
+        console.log("Pushing code to " + remote + " " + branch);
         exec('git push ' + remote + ' ' + branch, function (error, stdout, stderr) {
-            console.log("Pushing code to " + remote + " " + branch);
-            let s = `${stdout}`;
-            console.log(s);
+            if(error){
+                console.error(`exec error: ${error}`);
+                return;
+            }
         })
     });
 
