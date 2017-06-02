@@ -47,7 +47,7 @@ else if (process.argv[2] !== '-s') {
         }
 
         exec('git push ' + remote + ' ' + branch, function (error, stdout, stderr) {
-
+            console.log("Pushing code to " + remote + " " + branch);
             let s = `${stdout}`;
             console.log(s);
         })
