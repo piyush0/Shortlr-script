@@ -13,12 +13,13 @@ Now you can use it globally
 ## Usage
 
 ### Simple shortening
+<code> shortlr -l 'url' </code>
 
 If the argument is a URL, the output a shortened URL. 
 
 #### Example
 
-<code> shortlr http://google.com </code>
+<code> shortlr -l http://google.com </code>
 
 will produces a short link pointing to google.
 

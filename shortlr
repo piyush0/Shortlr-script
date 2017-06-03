@@ -10,12 +10,28 @@ const querystring = require('querystring');
 const http = require('http');
 
 
-if (process.argv[2] && ValidURL(process.argv[2])) {
-    const customShortcode = process.argv[3];
-    PostCode(process.argv[2],secret,customShortcode);
-}
+if (process.argv[2] === '-l') {
+    const customShortcode = process.argv[4];
+    PostCode(process.argv[3], secret, customShortcode);
+} else if (process.argv[2] === '-s') {
+    let remote = null;
+    if (process.argv[3]) {
+        remote = process.argv[3];
+    } else {
+        remote = 'origin';
+    }
 
-else if (process.argv[2] !== '-s') {
+    exec('git config --get remote.' + remote + '.url', function (error, stdout, stderr) {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+
+        let str = `${stdout}`;
+        PostCode(str);
+    });
+
+} else {
     const customShortcode = process.argv[5];
     const directory = process.argv[4];
     let remote = null;
@@ -48,33 +64,14 @@ else if (process.argv[2] !== '-s') {
 
         console.log("Pushing code to " + remote + " " + branch);
         exec('git push ' + remote + ' ' + branch, function (error, stdout, stderr) {
-            if(error){
+            if (error) {
                 console.error(`exec error: ${error}`);
                 return;
             }
         })
     });
 
-} else {
-    let remote = null;
-    if (process.argv[3]) {
-        remote = process.argv[3];
-    } else {
-        remote = 'origin';
-    }
-
-    exec('git config --get remote.' + remote + '.url', function (error, stdout, stderr) {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-
-        let str = `${stdout}`;
-        PostCode(str);
-    });
-
 }
-
 function PostCode(url, secret, code) {
 
     url = url.replace(/(\r\n|\n|\r)/gm, "");
@@ -103,14 +100,4 @@ function PostCode(url, secret, code) {
 
     post_req.write(post_data);
     post_req.end();
-}
-
-function ValidURL(str) {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-        '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return pattern.test(str);
 }
